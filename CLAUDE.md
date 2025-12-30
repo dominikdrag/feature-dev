@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a Claude Code plugin that provides an 8-phase feature development workflow. It uses specialized agents for codebase exploration, architecture design, testing, security auditing, and code review.
+This is a Claude Code plugin that provides an 8-phase feature development workflow. It uses specialized agents for codebase exploration, architecture design, security auditing, and code review.
 
 ## Plugin Structure
 
@@ -15,7 +15,6 @@ feature-dev/
 │   ├── code-explorer.md          # Sonnet - traces execution paths, maps architecture
 │   ├── code-architect.md         # Opus - designs feature architectures
 │   ├── code-reviewer.md          # Opus - reviews for bugs and convention adherence
-│   ├── test-writer.md            # Opus - writes comprehensive tests
 │   └── security-auditor.md       # Sonnet - OWASP Top 10 checks (optional)
 ├── commands/feature-dev.md       # Main workflow command definition
 └── hooks/hooks.json              # Workflow enforcement hooks
@@ -49,14 +48,15 @@ If the prompt-based approach proves unreliable, NOTES.md documents an alternativ
 3. Clarifying Questions - Resolve ambiguities
 4. Architecture Design - Launch 3 `code-architect` agents, present options via `AskUserQuestion`
 5. Implementation - Build after user selects architecture
-6. Testing - Launch `test-writer` agent
+6. Testing - Write tests directly (no subagent, preserves implementation context)
 7. Quality Review - Launch 3 parallel `code-reviewer` agents (+ optional `security-auditor`)
 8. Summary - Document completion
 
 ## Key Design Decisions
 
-- Opus models used for architecture, testing, and code review (higher reasoning quality)
+- Opus models used for architecture and code review (higher reasoning quality)
 - Sonnet used for exploration and security auditing (cost efficiency for analysis tasks)
+- Testing is done directly by Claude (no subagent) to preserve local implementation context
 - Confidence thresholds: code-reviewer >= 80/100, security-auditor >= 85/100
 - Architecture selection is a hard gate - implementation blocked until user explicitly chooses
 

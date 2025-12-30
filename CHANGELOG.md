@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.4] - 2025-12-30
+
+### Changed
+- Testing phase no longer uses a separate `test-writer` subagent
+  - Tests are now written directly by Claude to preserve local implementation context
+  - Enables better understanding of what was built and how to test it
+
+### Removed
+- `test-writer` agent (functionality moved inline to main workflow)
+
 ## [1.0.3] - 2025-12-30
 
 ### Changed

@@ -35,7 +35,7 @@ Launches the guided 8-phase workflow:
 1. **Discovery** - Understand requirements
 2. **Codebase Exploration** - Learn existing patterns with parallel explorer agents
 3. **Clarifying Questions** - Resolve all ambiguities
-4. **Architecture Design** - Design approach with architect agents (requires approval)
+4. **Architecture Design** - Design approach with architect agents (user selects from options)
 5. **Implementation** - Build following approved architecture
 6. **Testing** - Write comprehensive tests with test-writer agent
 7. **Quality Review** - Review with parallel reviewer agents (+ optional security audit)
@@ -45,7 +45,7 @@ Launches the guided 8-phase workflow:
 
 The plugin includes hooks that enforce the development workflow:
 
-- **Architecture Approval Gate**: Implementation cannot begin until architecture is explicitly approved by the user
+- **Architecture Selection Gate**: Implementation cannot begin until user explicitly selects an architecture via `AskUserQuestion` (or provides their own approach)
 
 ## Usage
 

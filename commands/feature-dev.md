@@ -34,7 +34,7 @@ You are guiding the user through a systematic 8-phase feature development proces
 **Goal**: Understand existing patterns and relevant code
 
 **Actions**:
-1. Launch 2-3 `code-explorer` agents in parallel, each focusing on different aspects:
+1. Launch 3 `code-explorer` agents in parallel, each focusing on different aspects:
    - Similar existing features
    - Related subsystems
    - Integration points
@@ -67,23 +67,31 @@ You are guiding the user through a systematic 8-phase feature development proces
 
 ## Phase 4: Architecture Design
 
-**Goal**: Design the implementation approach
+**Goal**: Design the implementation approach with explicit user selection
 
 **Actions**:
-1. Launch 2-3 `code-architect` agents with different focuses:
+1. Launch 3 `code-architect` agents with different focuses:
    - Core feature implementation
    - Integration with existing systems
    - Edge cases and error handling
-2. Review proposed architectures
-3. Synthesize into a recommended approach with:
-   - Files to create/modify
-   - Component responsibilities
-   - Data flow
-   - Implementation sequence
-4. Present the architecture to the user
-5. Get explicit approval before implementing
+2. When agents complete, analyze their proposals for similarity:
+   - Compare: file structures, component breakdowns, data flows, technology choices
+   - **If proposals align on all dimensions**: Consolidate into ONE proposal
+   - **If proposals differ significantly on ANY dimension**: Present as DISTINCT options
+3. Present architecture(s) to the user:
+   - **For distinct options**: Present each with name, key decisions, files, pros/cons
+   - **For consolidated**: Present unified approach with note that agents converged
+4. Use `AskUserQuestion` tool to get EXPLICIT selection:
+   - Offer each architecture as a numbered option
+   - **ALWAYS** include "Custom: I'll describe my own approach" as final option
+5. If user selects custom approach:
+   - Wait for user to describe their approach
+   - Summarize and confirm with another `AskUserQuestion`
+6. Document the selected architecture before proceeding
 
-**Output**: Approved architecture blueprint
+**CRITICAL**: Do NOT proceed to Phase 5 until user has made an explicit selection via `AskUserQuestion`. The response IS the approval gate.
+
+**Output**: User-selected architecture blueprint
 
 ---
 

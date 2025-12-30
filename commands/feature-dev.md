@@ -76,13 +76,16 @@ You are guiding the user through a systematic 8-phase feature development proces
    - Edge cases and error handling
 2. When agents complete, analyze their proposals for similarity:
    - Compare: file structures, component breakdowns, data flows, technology choices
-   - **If proposals align on all dimensions**: Consolidate into ONE proposal
-   - **If proposals differ significantly on ANY dimension**: Present as DISTINCT options
+   - **If proposals diverge significantly**: Present as DISTINCT architecture options
+   - **If proposals converge with minor variations**: Present the converged approach AND highlight variations as sub-options (e.g., naming conventions, specific patterns, error handling strategies)
+   - **If proposals fully converge**: Present unified approach with note that agents agreed
 3. Present architecture(s) to the user:
-   - **For distinct options**: Present each with name, key decisions, files, pros/cons
-   - **For consolidated**: Present unified approach with note that agents converged
+   - **For divergent options**: Present each with name, key decisions, files, pros/cons
+   - **For converged with variations**: Present unified core approach, then list each variation point with the different approaches proposed
+   - **For fully converged**: Present unified approach
 4. Use `AskUserQuestion` tool to get EXPLICIT selection:
-   - Offer each architecture as a numbered option
+   - **For divergent options**: Offer each architecture as a numbered option
+   - **For converged with variations**: Present the converged approach, then ask user to choose between the specific variation points (may require multiple questions)
    - **ALWAYS** include "Custom: I'll describe my own approach" as final option
 5. If user selects custom approach:
    - Wait for user to describe their approach

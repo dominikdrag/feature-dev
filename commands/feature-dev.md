@@ -126,23 +126,26 @@ You are guiding the user through a systematic 8-phase feature development proces
 
 **Goal**: Ensure comprehensive test coverage
 
-**Why no subagent**: Tests are written directly by Claude (not delegated to an agent) to preserve local context from the implementation phase. This enables better understanding of what was built and how to test it.
+**Approach**: Use a `test-analyzer` agent to propose test cases, then write tests directly (not delegated) to preserve local context from implementation.
 
 **Actions**:
-1. Analyze existing test patterns in the project:
-   - Testing framework (Jest, pytest, Go testing, etc.)
-   - Test file organization and naming conventions
-   - Setup/teardown patterns
-   - Mocking and stubbing approaches
-2. Design test cases covering:
+1. Launch a `test-analyzer` agent to analyze the implemented changes:
+   - It will identify project test patterns and conventions
+   - It will propose specific test cases with priorities
+   - It will note mocking requirements and setup complexity
+2. Review the proposed test plan
+3. Write tests following the plan and project conventions:
    - Happy path scenarios
    - Edge cases and boundary conditions
    - Error handling paths
    - Integration points with existing code
-3. Write tests following project conventions
 4. Run tests and ensure they pass
 5. Address any failing tests
-6. Verify test coverage is adequate
+
+**Why this approach**:
+- Analyzer agent provides structured, comprehensive test proposals
+- Writing tests directly preserves local context from implementation
+- Results in better test quality than delegating to an agent without context
 
 **Test Quality Standards**:
 - Test names clearly describe what is being tested

@@ -1,6 +1,6 @@
 {
   "name": "feature-dev",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "8-phase feature development workflow with specialized agents for codebase exploration, architecture design, security auditing, and quality review.",
   "author": {
     "name": "Dominik Drag"

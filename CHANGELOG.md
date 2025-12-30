@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.5] - 2025-12-30
+
+### Added
+- `test-analyzer` agent (Sonnet) for proposing comprehensive test plans
+  - Analyzes implemented code and project test patterns
+  - Proposes specific test cases with priorities
+  - Identifies mocking requirements and setup complexity
+
+### Changed
+- Testing phase now uses hybrid approach:
+  - `test-analyzer` agent proposes what should be tested
+  - Tests written directly by Claude to preserve implementation context
+  - Results in better test coverage than either approach alone
+
 ## [1.0.4] - 2025-12-30
 
 ### Changed

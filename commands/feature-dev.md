@@ -73,20 +73,48 @@ At the start, confirm the configuration:
 
 ## Phase 3: Clarifying Questions
 
-**Goal**: Resolve all ambiguities before designing
+**Goal**: Resolve all ambiguities through iterative dialogue before designing
+
+**Approach**: Use progressive clarification rounds rather than asking all questions at once. User answers often reveal new considerations that require follow-up.
 
 **Actions**:
-1. Based on codebase exploration, identify underspecified aspects:
+1. **Initial Assessment**: Based on codebase exploration, identify the most critical gaps:
    - Edge cases not covered
    - Integration decisions
    - UX/behavior choices
    - Performance requirements
    - Error handling expectations
-2. Present ALL questions to the user in an organized list
-3. Wait for answers before proceeding
-4. Do NOT proceed to architecture until questions are answered
+   - Scope boundaries
 
-**Output**: Complete requirements with all ambiguities resolved
+2. **Clarification Loop** (repeat until confident):
+   a. Present focused questions for the current round (prioritize by impact)
+   b. Wait for user answers
+   c. Analyze answers:
+      - Update understanding of requirements
+      - Note any new ambiguities revealed by answers
+      - Identify follow-up questions triggered by responses
+   d. Re-assess scope:
+      - Are core requirements now well-defined?
+      - Are integration points clear?
+      - Are edge cases understood?
+      - Are there remaining high-impact unknowns?
+   e. **Confidence check**: Proceed if:
+      - No critical ambiguities remain
+      - Answers are internally consistent
+      - Scope is bounded and achievable
+      - Integration approach is clear
+   f. If not confident, continue loop with follow-up questions
+
+3. **Exit Criteria** - Proceed to Phase 4 when ALL of these are true:
+   - Core functionality is well-specified
+   - Integration points are identified and understood
+   - Known edge cases have defined handling
+   - No answers contradict each other
+   - Scope creep risks are addressed
+
+4. Summarize the final understanding before proceeding
+
+**Output**: Complete requirements with all ambiguities resolved through iterative dialogue
 
 ---
 

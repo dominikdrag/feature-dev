@@ -1,7 +1,7 @@
 ---
 description: Guided feature development with codebase understanding and architecture focus
 allowed-tools: Read, Write, Edit, Glob, Grep, LS, Bash, Agent, TodoWrite, AskUser
-argument-hint: [feature-description]
+argument-hint: [--explorers=N] [--architects=N] [--analyzers=N] [--reviewers=N] <feature-description>
 ---
 
 # Feature Development Workflow
@@ -14,6 +14,31 @@ You are guiding the user through a systematic 8-phase feature development proces
 2. **Understand before building** - Use agents to explore the codebase thoroughly
 3. **Read what agents find** - Always read the files identified by exploration agents
 4. **Keep code simple** - Follow existing patterns, avoid over-engineering
+
+---
+
+## Configuration
+
+### Parse Arguments
+
+Arguments: $ARGUMENTS
+
+Parse optional flags to configure agent counts:
+- `--explorers=N` - Number of `code-explorer` agents (default: 3)
+- `--architects=N` - Number of `code-architect` agents (default: 3)
+- `--analyzers=N` - Number of `test-analyzer` agents (default: 1)
+- `--reviewers=N` - Number of `code-reviewer` agents (default: 3)
+
+Valid range for all counts: 1-5. If a value is out of range, use the default.
+
+Remaining text after flags is the feature description.
+
+### Display Configuration
+
+At the start, confirm the configuration:
+> Using agent counts: {explorers} explorers, {architects} architects, {analyzers} analyzers, {reviewers} reviewers
+
+---
 
 ## Phase 1: Discovery
 
@@ -34,10 +59,10 @@ You are guiding the user through a systematic 8-phase feature development proces
 **Goal**: Understand existing patterns and relevant code
 
 **Actions**:
-1. Launch 3 `code-explorer` agents in parallel, each focusing on different aspects:
-   - Similar existing features
-   - Related subsystems
-   - Integration points
+1. Launch {explorers} `code-explorer` agent(s) in parallel:
+   - **If 1**: Focus on primary integration points and similar features
+   - **If 2**: Split between (1) similar features and (2) integration points
+   - **If 3+**: Distribute across similar features, related subsystems, and integration points
 2. Wait for agent results
 3. Read the essential files identified by the agents
 4. Synthesize findings into a codebase understanding summary
@@ -70,10 +95,10 @@ You are guiding the user through a systematic 8-phase feature development proces
 **Goal**: Design the implementation approach with explicit user selection
 
 **Actions**:
-1. Launch 3 `code-architect` agents with different focuses:
-   - Core feature implementation
-   - Integration with existing systems
-   - Edge cases and error handling
+1. Launch {architects} `code-architect` agent(s) with different focuses:
+   - **If 1**: Single comprehensive architecture covering all aspects
+   - **If 2**: Split between (1) core implementation and (2) integration/edge cases
+   - **If 3+**: Distribute across core implementation, integration, and edge cases/error handling
 2. When agents complete, analyze their proposals for similarity:
    - Compare: file structures, component breakdowns, data flows, technology choices
    - **If proposals diverge significantly**: Present as DISTINCT architecture options
@@ -124,26 +149,40 @@ You are guiding the user through a systematic 8-phase feature development proces
 
 ## Phase 6: Testing
 
-**Goal**: Ensure comprehensive test coverage
+**Goal**: Ensure comprehensive test coverage with user-approved strategy
 
-**Approach**: Use a `test-analyzer` agent to propose test cases, then write tests directly (not delegated) to preserve local context from implementation.
+**Approach**: Use a `test-analyzer` agent to propose test cases, present the analysis to the user for approval, then write tests directly (not delegated) to preserve local context from implementation.
 
 **Actions**:
-1. Launch a `test-analyzer` agent to analyze the implemented changes:
-   - It will identify project test patterns and conventions
-   - It will propose specific test cases with priorities
-   - It will note mocking requirements and setup complexity
-2. Review the proposed test plan
-3. Write tests following the plan and project conventions:
+1. Launch {analyzers} `test-analyzer` agent(s) to analyze the implemented changes:
+   - **If 1**: Single comprehensive test analysis
+   - **If 2+**: Distribute across unit tests, integration tests, and edge cases
+   - Each will identify test patterns, propose test cases, and note mocking requirements
+2. Present the test analysis to the user:
+   - Summarize the proposed test categories (unit, integration, edge cases)
+   - List key test cases with their purposes
+   - Highlight any mocking requirements or special setup needed
+   - Note the total number of tests proposed
+3. Use `AskUserQuestion` to get EXPLICIT confirmation:
+   - Option 1: "Proceed with proposed testing strategy"
+   - Option 2: "Modify testing scope" (user describes changes)
+   - Option 3: "Skip testing phase"
+4. If user selects "Modify testing scope":
+   - Wait for user to describe their modifications
+   - Incorporate feedback into test plan
+5. Write tests following the confirmed plan and project conventions:
    - Happy path scenarios
    - Edge cases and boundary conditions
    - Error handling paths
    - Integration points with existing code
-4. Run tests and ensure they pass
-5. Address any failing tests
+6. Run tests and ensure they pass
+7. Address any failing tests
+
+**CRITICAL**: Do NOT write tests until user has made an explicit selection via `AskUserQuestion`.
 
 **Why this approach**:
 - Analyzer agent provides structured, comprehensive test proposals
+- User approval ensures alignment with expectations before effort is spent
 - Writing tests directly preserves local context from implementation
 - Results in better test quality than delegating to an agent without context
 
@@ -153,7 +192,7 @@ You are guiding the user through a systematic 8-phase feature development proces
 - Tests are independent (no shared state)
 - Follow existing project test patterns exactly
 
-**Output**: Comprehensive test suite with passing tests
+**Output**: User-approved test suite with passing tests
 
 ---
 
@@ -162,10 +201,10 @@ You are guiding the user through a systematic 8-phase feature development proces
 **Goal**: Ensure code quality and correctness
 
 **Actions**:
-1. Launch 3 `code-reviewer` agents in parallel, each focusing on:
-   - Code correctness and bugs
-   - Project convention adherence
-   - Simplicity and maintainability
+1. Launch {reviewers} `code-reviewer` agent(s) in parallel:
+   - **If 1**: Comprehensive review covering all aspects
+   - **If 2**: Split between (1) correctness/bugs and (2) conventions/maintainability
+   - **If 3+**: Distribute across correctness, conventions, and maintainability
 2. Collect review findings
 3. Address critical and important issues
 4. Re-review if significant changes were made
@@ -193,12 +232,29 @@ You are guiding the user through a systematic 8-phase feature development proces
 
 ## Usage
 
-This workflow is invoked with `/feature-dev` followed by an optional feature description:
+This workflow is invoked with `/feature-dev` followed by optional flags and a feature description:
 
+### Basic Usage
 ```
 /feature-dev Add user authentication with OAuth support
 /feature-dev
 ```
+
+### With Agent Count Overrides
+```
+/feature-dev --explorers=2 --architects=2 Add user authentication
+/feature-dev --reviewers=5 Implement payment processing
+/feature-dev --explorers=1 --architects=1 --reviewers=1 Small utility function
+```
+
+### Flag Reference
+
+| Flag | Default | Range | Phase |
+|------|---------|-------|-------|
+| `--explorers=N` | 3 | 1-5 | Phase 2: Codebase Exploration |
+| `--architects=N` | 3 | 1-5 | Phase 4: Architecture Design |
+| `--analyzers=N` | 1 | 1-5 | Phase 6: Testing |
+| `--reviewers=N` | 3 | 1-5 | Phase 7: Quality Review |
 
 If no description is provided, ask the user what feature they want to build.
 

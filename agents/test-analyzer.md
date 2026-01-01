@@ -21,7 +21,7 @@ description: |
   </commentary>
   </example>
 tools: Glob, Grep, LS, Read, NotebookRead, WebFetch, TodoWrite, WebSearch
-model: sonnet
+model: opus
 color: yellow
 ---
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0] - 2026-01-01
+
+### Changed
+- Testing phase now requires explicit user approval before writing tests
+  - Test analysis results presented to user with summary of categories and cases
+  - User must confirm via `AskUserQuestion` (proceed, modify scope, or skip)
+  - Mirrors architecture approval pattern from Phase 4
+- Upgraded `test-analyzer` agent from Sonnet to Opus for higher quality analysis
+
 ## [1.0.6] - 2025-12-30
 
 ### Changed

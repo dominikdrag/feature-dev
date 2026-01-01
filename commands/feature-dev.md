@@ -284,19 +284,63 @@ At the start, confirm the configuration:
 
 ## Phase 7: Quality Review
 
-**Goal**: Ensure code quality and correctness
+**Goal**: Ensure code quality and correctness through user-reviewed findings
 
 **Actions**:
+
+### Step 1: Launch Review Agents
 1. Launch {reviewers} `code-reviewer` agent(s) in parallel:
    - **If 1**: Comprehensive review covering all aspects
    - **If 2**: Split between (1) correctness/bugs and (2) conventions/maintainability
    - **If 3+**: Distribute across correctness, conventions, and maintainability
-2. Collect review findings
-3. Address critical and important issues
-4. Re-review if significant changes were made
-5. **Optional**: If user requests security audit, launch `security-auditor` agent
+2. **Wait for ALL agents to complete** before proceeding
+3. **Optional**: If user requests security audit, also launch `security-auditor` agent and wait
 
-**Output**: Quality-verified implementation
+### Step 2: Consolidate Findings
+1. Collect all findings from completed agents
+2. Deduplicate overlapping issues (same file + line + similar description)
+3. Organize by severity:
+   - **Critical Issues** (Confidence 90-100): Must be fixed
+   - **Important Issues** (Confidence 80-89): Should be addressed
+   - **Suggestions** (Confidence < 80): Nice to have improvements
+
+### Step 3: Present Findings to User
+Display consolidated findings in a clear format:
+
+```
+## Review Findings Summary
+
+### Critical Issues ({count})
+1. [FILE:LINE] Description - {confidence}%
+2. ...
+
+### Important Issues ({count})
+1. [FILE:LINE] Description - {confidence}%
+2. ...
+
+### Suggestions ({count})
+1. [FILE:LINE] Description - {confidence}%
+2. ...
+```
+
+### Step 4: User Selection
+Use `AskUserQuestion` with `multiSelect: true` to let user choose which issues to address:
+- List each issue as a selectable option
+- Group by severity in the question
+- Include "Skip all - proceed to summary" as an option
+
+### Step 5: Apply Selected Fixes
+1. Apply fixes ONLY for issues the user selected
+2. Track which fixes were applied for the summary
+
+### Step 6: Offer Re-review
+If any fixes were applied, use `AskUserQuestion` to ask:
+- "Run review again to verify fixes?"
+- "Proceed to summary"
+
+If user chooses re-review, return to Step 1 with a focused scope.
+
+**Output**: Quality-verified implementation with user-approved fixes
 
 ---
 

@@ -40,7 +40,7 @@ Launches the guided 8-phase workflow:
 4. **Architecture Design** - Design approach with architect agents (user selects from options)
 5. **Implementation** - Build following approved architecture, validate existing tests pass
 6. **Testing** - Propose tests with test-analyzer (user approval required), write tests, run with test-runner
-7. **Quality Review** - Review with parallel reviewer agents (+ optional security audit)
+7. **Quality Review** - Review with parallel reviewer agents, present findings for user selection (+ optional security audit)
 8. **Summary** - Document completion
 
 ## Workflow Enforcement
@@ -49,6 +49,7 @@ The plugin includes gates that enforce the development workflow:
 
 - **Exploration Completion Gate**: Phase 3 (Clarifying Questions) cannot begin until ALL exploration agents have returned their complete output
 - **Architecture Selection Gate**: Implementation cannot begin until user explicitly selects an architecture via `AskUserQuestion` (or provides their own approach)
+- **Quality Review Gate**: Fixes are not applied until user reviews consolidated findings and explicitly selects which issues to address
 
 ## Configuration
 

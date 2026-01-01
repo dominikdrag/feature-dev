@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.5] - 2026-01-01
+
+### Changed
+- Phase 7 (Quality Review) now requires explicit user approval before applying fixes
+  - Waits for ALL review agents to complete before proceeding
+  - Consolidates and deduplicates findings, organized by severity
+  - Presents findings summary to user with file:line and confidence scores
+  - Uses `AskUserQuestion` with `multiSelect: true` for per-issue selection
+  - Applies only the fixes user explicitly selected
+  - Asks user if they want to re-run review after fixes are applied
+
 ## [1.1.4] - 2026-01-01
 
 ### Added

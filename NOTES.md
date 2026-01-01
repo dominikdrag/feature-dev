@@ -8,3 +8,39 @@ The current hook uses a prompt-based approach to detect if the user selected an 
 - Phase 4 writes `.claude/feature-dev-approved.tmp` when user makes selection
 - Hook uses `type: "bash"` to check if file exists
 - Phase 8 cleans up the temp file
+
+## Workflow State Persistence (Compaction Recovery)
+
+The workflow uses a state file (`.claude/feature-dev-state.json`) to persist progress across:
+- Conversation compaction (automatic summarization when context gets long)
+- Session interruptions
+
+### Implementation Details
+
+1. **PreCompact Hook**: Before compaction, writes current phase state to the file
+2. **Workflow Start Check**: Command checks for existing state file to detect resumed workflows
+3. **Phase Transitions**: State file updated at start/end of each phase
+4. **Cleanup**: State file deleted on Phase 8 completion
+
+### State File Schema
+
+```json
+{
+  "active": true,
+  "currentPhase": 1,
+  "completedPhases": [1, 2],
+  "featureDescription": "Add user authentication",
+  "decisions": {
+    "architecture": "Option A: JWT-based auth",
+    "testStrategy": "Proceed with proposed testing"
+  },
+  "summary": "Completed exploration and clarifying questions. Ready for architecture design."
+}
+```
+
+### Recovery Behavior
+
+When resuming:
+1. User informed which phase is being resumed
+2. Completed phases and key decisions are displayed
+3. Workflow continues from current phase (no restart)

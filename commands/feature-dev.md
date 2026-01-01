@@ -17,6 +17,50 @@ You are guiding the user through a systematic 8-phase feature development proces
 
 ---
 
+## Workflow State Management
+
+This workflow uses a state file (`.claude/feature-dev-state.json`) to persist progress across conversation compaction and session interruptions.
+
+### On Workflow Start
+
+**FIRST**, check if `.claude/feature-dev-state.json` exists:
+- **If file exists and `active: true`**: This is a RESUMED workflow
+  - Read the state file to understand current progress
+  - Inform the user: "Resuming feature-dev workflow from Phase {currentPhase}"
+  - Display completed phases and key decisions from the state
+  - Continue from the current phase (do NOT restart from Phase 1)
+- **If file does not exist**: This is a NEW workflow
+  - Create initial state file with `active: true, currentPhase: 1, completedPhases: []`
+  - Proceed with Phase 1
+
+### State File Format
+
+```json
+{
+  "active": true,
+  "currentPhase": 1,
+  "completedPhases": [],
+  "featureDescription": "...",
+  "decisions": {
+    "architecture": null,
+    "testStrategy": null
+  },
+  "summary": "Brief context for resumption"
+}
+```
+
+### Updating State
+
+At the START of each phase, update the state file:
+- Set `currentPhase` to the new phase number
+- Update `summary` with relevant context
+
+At the END of each phase, update the state file:
+- Add the phase number to `completedPhases`
+- Store any decisions made (architecture selection, test strategy approval)
+
+---
+
 ## Configuration
 
 ### Parse Arguments
@@ -258,7 +302,7 @@ At the start, confirm the configuration:
 
 ## Phase 8: Summary
 
-**Goal**: Document what was accomplished
+**Goal**: Document what was accomplished and clean up workflow state
 
 **Actions**:
 1. List all files created or modified
@@ -267,6 +311,7 @@ At the start, confirm the configuration:
 4. Note any deferred work or known limitations
 5. Suggest potential follow-up tasks
 6. Mark all todos as complete
+7. **Delete the state file** (`.claude/feature-dev-state.json`) to mark workflow as complete
 
 **Output**: Completion summary with next steps
 

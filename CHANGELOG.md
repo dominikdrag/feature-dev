@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.4] - 2026-01-01
+
+### Added
+- Workflow state persistence for compaction recovery
+  - State file (`.claude/feature-dev-state.json`) tracks current phase, completed phases, and key decisions
+  - `PreCompact` hook automatically saves state before conversation compaction
+  - Workflow resumes from correct phase after compaction or session interruption
+  - State file cleaned up on Phase 8 completion
+
 ## [1.1.3] - 2026-01-01
 
 ### Fixed

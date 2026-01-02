@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.6] - 2026-01-02
 
 ### Added
 - Auto-approval hook for state file operations (Write, Edit, Delete)

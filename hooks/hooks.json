@@ -25,9 +25,13 @@
     ],
     "PreCompact": [
       {
-        "type": "prompt",
-        "prompt": "Check if a /feature-dev workflow is active. If YES: 1) Identify the current phase (1-8) based on conversation progress. 2) List completed phases. 3) Note key decisions (selected architecture, test strategy approval). 4) Write this state to .claude/feature-dev-state.json using Write tool with format: {\"active\": true, \"currentPhase\": N, \"completedPhases\": [...], \"decisions\": {...}, \"summary\": \"brief context\"}. Return: {\"decision\": \"allow\"}. If NO active workflow, return: {\"decision\": \"allow\"}.",
-        "timeout": 60
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Check if a /feature-dev workflow is active. If YES: 1) Identify the current phase (1-8) based on conversation progress. 2) List completed phases. 3) Note key decisions (selected architecture, test strategy approval). 4) Write this state to .claude/feature-dev-state.json using Write tool with format: {\"active\": true, \"currentPhase\": N, \"completedPhases\": [...], \"decisions\": {...}, \"summary\": \"brief context\"}. Return: {\"decision\": \"allow\"}. If NO active workflow, return: {\"decision\": \"allow\"}.",
+            "timeout": 60
+          }
+        ]
       }
     ]
   }

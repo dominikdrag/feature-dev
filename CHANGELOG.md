@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7] - 2026-01-03
+
+### Fixed
+- PreCompact hook schema validation error
+  - Added missing `hooks` array wrapper in hooks.json
+  - Aligns PreCompact structure with PreToolUse hook format
+
 ## [1.1.6] - 2026-01-02
 
 ### Added

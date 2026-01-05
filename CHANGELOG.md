@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.8] - 2026-01-05
+
+### Changed
+- Agent outputs in key decision phases must now be presented in full (not summarized)
+  - Phase 4 (Architecture Design): Full architect proposals for informed selection
+  - Phase 6 (Testing): Full test-analyzer output for strategy approval
+  - Phase 7 (Quality Review): Full reviewer findings for issue selection
+  - Ensures maximum user control at critical workflow gates
+
 ## [1.1.7] - 2026-01-03
 
 ### Fixed

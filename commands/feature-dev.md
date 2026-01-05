@@ -193,6 +193,8 @@ At the start, confirm the configuration:
 
 **CRITICAL**: Do NOT proceed to Phase 5 until user has made an explicit selection via `AskUserQuestion`. The response IS the approval gate.
 
+**IMPORTANT**: Present the FULL output from architecture agents to the user - do NOT summarize or condense their proposals. The user needs complete visibility into each architect's reasoning, trade-offs, and implementation details to make an informed decision. This is a key decision point requiring maximum user control.
+
 **Output**: User-selected architecture blueprint
 
 ---
@@ -265,6 +267,8 @@ At the start, confirm the configuration:
 
 **CRITICAL**: Do NOT write tests until user has made an explicit selection via `AskUserQuestion`.
 
+**IMPORTANT**: Present the FULL output from test-analyzer agent(s) to the user - do NOT summarize or condense the test proposals. The user needs complete visibility into each proposed test case, its rationale, edge cases identified, and mocking requirements to make an informed decision about the testing strategy.
+
 **Why this approach**:
 - Analyzer agent provides structured, comprehensive test proposals
 - User approval ensures alignment with expectations before effort is spent
@@ -296,7 +300,10 @@ At the start, confirm the configuration:
 2. **Wait for ALL agents to complete** before proceeding
 3. **Optional**: If user requests security audit, also launch `security-auditor` agent and wait
 
-### Step 2: Consolidate Findings
+### Step 2: Present Full Agent Output
+**IMPORTANT**: Present the FULL output from each review agent to the user - do NOT summarize or condense their findings. The user needs complete visibility into each reviewer's analysis, reasoning, and specific concerns to make informed decisions about which issues to address. This is a critical quality gate requiring maximum user control.
+
+### Step 3: Consolidate Findings
 1. Collect all findings from completed agents
 2. Deduplicate overlapping issues (same file + line + similar description)
 3. Organize by severity:
@@ -304,7 +311,7 @@ At the start, confirm the configuration:
    - **Important Issues** (Confidence 80-89): Should be addressed
    - **Suggestions** (Confidence < 80): Nice to have improvements
 
-### Step 3: Present Findings to User
+### Step 4: Present Findings to User
 Display consolidated findings in a clear format:
 
 ```
@@ -323,17 +330,17 @@ Display consolidated findings in a clear format:
 2. ...
 ```
 
-### Step 4: User Selection
+### Step 5: User Selection
 Use `AskUserQuestion` with `multiSelect: true` to let user choose which issues to address:
 - List each issue as a selectable option
 - Group by severity in the question
 - Include "Skip all - proceed to summary" as an option
 
-### Step 5: Apply Selected Fixes
+### Step 6: Apply Selected Fixes
 1. Apply fixes ONLY for issues the user selected
 2. Track which fixes were applied for the summary
 
-### Step 6: Offer Re-review
+### Step 7: Offer Re-review
 If any fixes were applied, use `AskUserQuestion` to ask:
 - "Run review again to verify fixes?"
 - "Proceed to summary"

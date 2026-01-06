@@ -42,7 +42,7 @@ Launches the guided 9-phase workflow:
 6. **Implementation** - Build following approved plan, update task progress in plan file
 7. **Testing** - Propose tests with test-analyzer (user approval required), write tests, run with test-runner
 8. **Quality Review** - Review with parallel reviewer agents, present findings for user selection (+ optional security audit)
-9. **Summary** - Document completion, clean up state and plan files
+9. **Summary** - Document completion, clean up state file (plan file kept if incomplete)
 
 ## Workflow Enforcement
 

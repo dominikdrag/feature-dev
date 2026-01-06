@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.1.3] - 2026-01-06
+
+### Changed
+- Phases 7-9 now explicitly update the plan file (`claude-tmp/devflow-plan.md`)
+  - Phase 7 (Testing): Marks TEST-NNN tasks complete, updates progress log
+  - Phase 8 (Quality Review): Tracks review initiation, fix selection, and completion
+  - Phase 9 (Summary): Updates status header and acceptance criteria
+- Plan file is now only deleted if ALL tasks and acceptance criteria are complete
+  - Incomplete workflows preserve the plan file as a record of unfinished work
+
 ## [2.1.2] - 2026-01-06
 
 ### Changed

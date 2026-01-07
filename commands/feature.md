@@ -78,7 +78,7 @@ Parse optional flags to configure agent counts:
 - `--analyzers=N` - Number of `test-analyzer` agents (default: 1)
 - `--reviewers=N` - Number of `code-reviewer` agents (default: 3)
 
-Valid range for all counts: 1-5. If a value is out of range, use the default.
+Valid range: 1-10 for explorers, 1-5 for all others. If a value is out of range, use the default.
 
 Remaining text after flags is the feature description.
 
@@ -512,7 +512,7 @@ This workflow is invoked with `/feature` followed by optional flags and a featur
 
 | Flag | Default | Range | Phase |
 |------|---------|-------|-------|
-| `--explorers=N` | 3 | 1-5 | Phase 2: Codebase Exploration |
+| `--explorers=N` | 3 | 1-10 | Phase 2: Codebase Exploration |
 | `--architects=N` | 3 | 1-5 | Phase 4: Architecture Design |
 | `--analyzers=N` | 1 | 1-5 | Phase 7: Testing |
 | `--reviewers=N` | 3 | 1-5 | Phase 8: Quality Review |

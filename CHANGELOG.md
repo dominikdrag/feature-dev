@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.4] - 2026-01-07
+
+### Changed
+- Increased `--explorers` flag maximum from 5 to 10
+  - Allows more thorough codebase exploration for large or complex projects
+  - Other agent limits remain at 1-5
+
 ## [2.1.3] - 2026-01-06
 
 ### Changed

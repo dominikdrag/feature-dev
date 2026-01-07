@@ -61,7 +61,7 @@ Control the number of agents launched per phase:
 
 | Flag | Default | Range | Phase |
 |------|---------|-------|-------|
-| `--explorers=N` | 3 | 1-5 | Phase 2: Codebase Exploration |
+| `--explorers=N` | 3 | 1-10 | Phase 2: Codebase Exploration |
 | `--architects=N` | 3 | 1-5 | Phase 4: Architecture Design |
 | `--analyzers=N` | 1 | 1-5 | Phase 7: Testing |
 | `--reviewers=N` | 3 | 1-5 | Phase 8: Quality Review |

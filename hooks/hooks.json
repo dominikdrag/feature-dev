@@ -1,18 +1,6 @@
 {
   "description": "Workflow enforcement hooks for devflow plugin",
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|Bash",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Check if this operation targets a workflow file. For Write/Edit: check if file_path ends with 'claude-tmp/devflow-state.json' OR 'claude-tmp/devflow-plan.md'. For Bash: check if command matches pattern 'rm.*claude-tmp/devflow-state\\.json' OR 'rm.*claude-tmp/devflow-plan\\.md'. If YES (workflow file operation), return: {\"decision\": \"allow\", \"reason\": \"Auto-approving workflow file operation\"}. If NO (other operation), return: {\"decision\": \"allow\"} to let subsequent hooks evaluate.",
-            "timeout": 15
-          }
-        ]
-      }
-    ],
     "PreCompact": [
       {
         "hooks": [

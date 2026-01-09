@@ -78,7 +78,7 @@ Parse optional flags to configure agent counts:
 - `--analyzers=N` - Number of `test-analyzer` agents (default: 1)
 - `--reviewers=N` - Number of `code-reviewer` agents (default: 3)
 
-Valid range: 1-10 for explorers, 1-5 for all others. If a value is out of range, use the default.
+Valid range: 1-10 for explorers, 1-5 for all others. If a value is out of range, use the closest value in range.
 
 Remaining text after flags is the feature description.
 

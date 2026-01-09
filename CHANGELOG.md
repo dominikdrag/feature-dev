@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.8] - 2026-01-09
+
+### Changed
+- Out-of-range agent count flags now clamp to valid range instead of using defaults
+  - e.g., `--explorers=15` now uses 10 (max) instead of 3 (default)
+  - More intuitive behavior that respects user intent
+
 ## [2.1.7] - 2026-01-08
 
 ### Removed

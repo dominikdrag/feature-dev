@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1] - 2026-01-11
+
+### Changed
+- Renamed state files for consistency:
+  - `devflow-state.json` → `devflow-feature-state.json` (for `/feature`)
+  - `tdd-state.json` → `devflow-tdd-state.json` (for `/tdd`)
+
 ## [2.2.0] - 2026-01-11
 
 ### Added

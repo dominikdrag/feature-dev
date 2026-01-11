@@ -46,7 +46,7 @@ color: yellow|green|red           # Status line color
 
 ## Hook System
 
-The plugin uses a `PreCompact` hook to persist workflow state before conversation compaction. The hook saves state to the appropriate state file (`devflow-state.json` for `/feature`, `tdd-state.json` for `/tdd`) enabling workflow resumption.
+The plugin uses a `PreCompact` hook to persist workflow state before conversation compaction. The hook saves state to the appropriate state file (`devflow-feature-state.json` for `/feature`, `devflow-tdd-state.json` for `/tdd`) enabling workflow resumption.
 
 ## Workflow Phases
 
@@ -87,7 +87,7 @@ The plugin uses a `PreCompact` hook to persist workflow state before conversatio
 - Tests written directly (not by subagent) to preserve implementation context
 - Confidence thresholds: code-reviewer >= 80/100, security-auditor >= 85/100
 - Architecture selection is a hard gate - implementation blocked until user explicitly chooses
-- TDD workflow uses separate state files (`tdd-state.json`, `tdd-plan.md`) from feature workflow
+- TDD workflow uses separate state files (`devflow-tdd-state.json`, `tdd-plan.md`) from feature workflow
 
 ## Commit Convention
 

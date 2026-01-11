@@ -11,7 +11,7 @@ The current hook uses a prompt-based approach to detect if the user selected an 
 
 ## Workflow State Persistence (Compaction Recovery)
 
-The workflow uses a state file (`claude-tmp/devflow-state.json`) to persist progress across:
+The workflow uses a state file (`claude-tmp/devflow-feature-state.json`) to persist progress across:
 - Conversation compaction (automatic summarization when context gets long)
 - Session interruptions
 
@@ -28,7 +28,7 @@ A PreToolUse hook automatically approves Write/Edit/Bash operations on the state
 
 **Hook Configuration** (hooks/hooks.json):
 - Matcher: `Write|Edit|Bash` (positioned first in PreToolUse array)
-- Checks if operation targets `claude-tmp/devflow-state.json`
+- Checks if operation targets `claude-tmp/devflow-feature-state.json`
 - Auto-approves matching operations
 - Allows non-matching operations to pass through to subsequent hooks
 

@@ -19,11 +19,11 @@ You are guiding the user through a systematic 9-phase Test-Driven Development pr
 
 ## Workflow State Management
 
-This workflow uses a state file (`claude-tmp/tdd-state.json`) to persist progress across conversation compaction and session interruptions.
+This workflow uses a state file (`claude-tmp/devflow-tdd-state.json`) to persist progress across conversation compaction and session interruptions.
 
 ### On Workflow Start
 
-**FIRST**, check if `claude-tmp/tdd-state.json` exists:
+**FIRST**, check if `claude-tmp/devflow-tdd-state.json` exists:
 - **If file exists and `active: true`**: This is a RESUMED workflow
   - Read the state file to understand current progress
   - **If `claude-tmp/tdd-plan.md` exists**: Read the plan file
@@ -542,7 +542,7 @@ If user chooses re-review, return to Step 2 with focused scope.
    - `| [timestamp] | - | - | TDD development completed |`
 
 **Cleanup** (conditional):
-- Delete state file (`claude-tmp/tdd-state.json`)
+- Delete state file (`claude-tmp/devflow-tdd-state.json`)
 - **Only delete plan file if ALL tasks and acceptance criteria are complete**
 - If any tasks are incomplete, keep `tdd-plan.md` as a record of unfinished work
 
